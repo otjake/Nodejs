@@ -1,0 +1,34 @@
+*npm package install on mac
+To tell npm to install for dev (npm install nodemon --save dev)
+To tell npm to globally on the machine (npm install nodemon --save)
+
+*in package.json (Max-Nodejs-Guide)
+The "start" script is used to buld the app implementing our entry point ie (npm start),
+this works this way because start is a special npm recognised case,
+to use your own case like the script "start-server" you need to add a run ir (npm run start-server)
+
+*npm install nodemon
+is a package that reloads the server when changes are discovers
+packages can be installed as a development dependency and not on a live server
+after installing nodemon,
+replace npm in the start script in package.json to nodemon so it can be used to rerun the scripts everytime a change occurs
+
+*Middleware
+This is utilized by express js, and it middles requests are funneled through a bunch of functions,
+therefore multiple pieces of request handlers till i response is gotten
+I.e  Request->middleware->middleware->response
+it is created using app.use function with 3 arguements
+app.use((req, res, next) =>{
+    logic
+    next()
+});
+
+*Templating engines
+ 1. EJS : <p><%= name %></p> : uses normal html and plain javascript in your templates
+ 2. pug(Jade) p #{name} : uses minimal html and custom template language and is limited
+ 3. Handlebars <p>{{ name }}</p> : uses normal HTML and custom template language also limited
+
+*app.set
+This is used to set certain names to a value globally in your app
+app.set('title', 'My Site')
+app.get('title'); //'My Site'
