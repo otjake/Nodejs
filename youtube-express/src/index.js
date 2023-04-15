@@ -34,9 +34,9 @@ app.get('/',(request, response) => {
 })
 
 //initialize passport
-app.use(passport.initialize);
+app.use(passport.initialize());
 //if we are using sessions in our app we call passport sessions too
-app.use(passport.session);
+app.use(passport.session());
 
 //Registering the groceries route, we can also add a prefix app.use('/groceries',groceriesRoute), like grouping it;
 app.use('/api/v1/groceries',groceriesRoute);

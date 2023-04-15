@@ -53,25 +53,9 @@ router.post('/login',async (request, response) => {
 
 // this (passport.authenticate('local')) means we are authenticating using the local strategy
 // found in youtube-express/src/strategies/local.js
-router.post('/passport-login',passport.authenticate('local'), async (request, response) => {
-    const {username, password} = request.body;
-    if (username && password) {
-        const userDB = await User.findOne({username});
-        if(!userDB){
-            return response.sendStatus(401).send('Invalid details')
-        }
-        const isCorrectPassword = comparePassword(password,userDB.password);
-        if(isCorrectPassword){
-            //add user data to session
-            request.session.user = userDB;
-           return response.send('login successful')
-        }else {
-            return response.sendStatus(401).send('Invalid details')
-        }
-    } else {
-        response.status(422)
-        return response.send('Username and Password required')
-    }
+router.post('/passport-login', passport.authenticate('local'), (request, response) => {
+    console.log("passed");
+    return response.sendStatus(200)
 })
 
 router.post('/register',async (request,response) => {
