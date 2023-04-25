@@ -5,7 +5,8 @@ const router = Router();
 //router has almost everything express has along with the registering of middle wares which will affect only routes
 //withing this file
 router.use((request, response, next) => {
-    if(request.session.user) next();
+    // if(request.session.user) next(); //normal login
+    if(request.user) next(); //using passport and its dserializer login
     else response.send(401)
 })
 const groceryList = [

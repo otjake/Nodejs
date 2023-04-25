@@ -1,5 +1,7 @@
 const express = require('express'); //imports the express library(foundation)
 const session = require('express-session')
+//this aids saving a session to DB
+const MongoStore =require('connect-mongo')
 const passport = require('passport')
 //this hold passport validation process
 require('./strategies/local')
@@ -25,7 +27,13 @@ app.use(bodyParser.json({extended: false}))
 app.use(session({
     secret:'hshdhdyeyuehheururjrjrjr', //used to encrypt and decrypt session data
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    //working with connect-mongo above
+    //it saves session to DB and even when the server is restarted existing session are still working
+    //removing the need to relogin
+    store : MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/youtube-express'
+    })
 }))
 
 //get request
