@@ -1,0 +1,53 @@
+const mongoose = require('mongoose')
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*password).{8,}$/;
+const UserSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: [true, 'Please provide name'],
+        minLength: 3,
+        maxlength: 50
+    },
+    email:{
+        type: String,
+        required: [true, 'Please provide email'],
+        unique: true,
+        match : [emailRegex,'Please provide a valid email']
+    },
+    password: {
+        type: String,
+        required: true,
+        match: [passwordRegex, 'Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.']
+    },
+})
+
+//this can be equated to observers in laravel,
+//so before a model is saved hash the password
+UserSchema.pre('save', async function(next){
+    const salt = await bcrypt.genSalt(10);//generates random string used to enhance the security of the password
+    // hashing process.
+    // The function bcrypt.genSalt() generates a salt with a cost factor of 10,
+    // meaning it performs 2^10 iterations to generate the salt.
+    // The higher the cost factor, the more secure but slower the hashing process becomes.
+
+    //this refers to the model
+    this.password = await bcrypt.hash(this.password,salt)
+    next()
+})
+
+UserSchema.methods.createJWT = function (){
+    return jwt.sign({userId:this._id,name:this.name}, process.env.JWT_SECRET, {
+        expiresIn : process.env.JWT_LIFETIME
+    })
+}
+
+UserSchema.methods.comparePassword = async function (enteredpassword){
+    //compare user db password with enterd password
+    const isMatch = await bcrypt.compare(enteredpassword,this.password)
+    return isMatch;
+
+}
+
+module.exports = mongoose.model('User',UserSchema)
