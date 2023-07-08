@@ -22,11 +22,11 @@ const roles = [
 
 async function seedRoles() {
     try {
-        await Role.deleteMany().maxTimeMS(30000); // Clear existing roles from the database
+        await Role.deleteMany(); // Clear existing roles from the database
 
         for (const roleData of roles) {
-            // const role = new Role(roleData);
-            await Role.create(roleData);
+            const role = new Role(roleData);
+            await role.save();
             console.log(`Role '${role.name}' seeded successfully`);
         }
 

@@ -46,7 +46,7 @@ const login = async (req,res) => {
     }
     //make jwt
     const token = user.createJWT()
-    res.status(StatusCodes.OK).json({
+    return res.status(StatusCodes.OK).json({
         user,
         token
     })
