@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const User = require('../models/User')
 const Product = require('../models/Product')
+const transporter = require('../middleware/mail')
 const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -47,6 +48,20 @@ const login = async (req,res) => {
     }
     //make jwt
     const token = user.createJWT()
+    const mailOptions = {
+        from: 'your_email@gmail.com',
+        to: 'recipient@example.com',
+        subject: 'Hello, World!',
+        text: 'This is a test email from Nodemailer in Express.js.'
+    };
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Error sending email:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
     return res.status(200).json({
         user,
         token
