@@ -1,9 +1,7 @@
 const { validationResult } = require('express-validator');
 const User = require('../models/User')
 const Product = require('../models/Product')
-const transporter = require('../middleware/mail')
 const {sendTestEmail} = require("../middleware/mail");
-const {addJobToQueue} = require("../middleware/queue");
 const path = require("path");
 const register = async (req, res) => {
     const errors = validationResult(req);
@@ -24,7 +22,6 @@ const register = async (req, res) => {
         //mail user on reg, could also hold email verification token
         const templatePath = path.join(__dirname, '..', '..' , 'views', 'mailTemplate/welcomeMail.ejs');
         await sendTestEmail(user,templatePath);
-        await addJobToQueue();
         // Sending the response with the created user
         return res.status(201).json({ user });
     } catch (error) {

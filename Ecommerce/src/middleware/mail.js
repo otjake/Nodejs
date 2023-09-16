@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
+const {addJobToQueue} = require("./queue");
 const fs = require('fs').promises;
 
 // Create a transporter object
@@ -26,6 +27,8 @@ const sendTestEmail = async (user,templatePath) => {
     };
     try {
         await transporter.sendMail(mailOptions);
+        //place on a queue
+        await addJobToQueue();
         console.log('Email sent successfully');
     } catch (error) {
         console.error('Error sending email:', error);
