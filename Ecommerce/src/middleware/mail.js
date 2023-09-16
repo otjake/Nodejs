@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
-const path = require("path");
 const fs = require('fs').promises;
 
 // Create a transporter object
@@ -15,15 +14,16 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send a test email
-const sendTestEmail = async () => {
-    const templatePath = path.join(__dirname, '..', '..' , 'views', 'mailTemplate/welcomeMail.ejs');
+const sendTestEmail = async (user,templatePath) => {
     const mailOptions = {
-        from: 'your-email@gmail.com',
-        to: 'recipient-email@example.com',
-        subject: 'Test Email',
-        html: await renderEmailTemplate({ message: 'This is a test email message.' }, templatePath),
+        from: 'ecommerce@gmail.com',
+        to: user.email,
+        subject: 'Welcome To eCommerce',
+        html: await renderEmailTemplate({
+            name: user.name ,
+            email: user.email ,
+        }, templatePath),
     };
-
     try {
         await transporter.sendMail(mailOptions);
         console.log('Email sent successfully');

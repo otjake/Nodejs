@@ -4,6 +4,7 @@ const Product = require('../models/Product')
 const transporter = require('../middleware/mail')
 const {sendTestEmail} = require("../middleware/mail");
 const {addJobToQueue} = require("../middleware/queue");
+const path = require("path");
 const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -20,6 +21,10 @@ const register = async (req, res) => {
         }
 
         const user = await User.create({ ...req.body });
+        //mail user on reg, could also hold email verification token
+        const templatePath = path.join(__dirname, '..', '..' , 'views', 'mailTemplate/welcomeMail.ejs');
+        await sendTestEmail(user,templatePath);
+        await addJobToQueue();
         // Sending the response with the created user
         return res.status(201).json({ user });
     } catch (error) {
@@ -50,22 +55,6 @@ const login = async (req,res) => {
     }
     //make jwt
     const token = user.createJWT()
-    // const mailOptions = {
-    //     from: 'your_email@gmail.com',
-    //     to: 'recipient@example.com',
-    //     subject: 'Hello, World!',
-    //     text: 'This is a test email from Nodemailer in Express.js.'
-    // };
-    // // Send the email
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         console.log('Error sending email:', error);
-    //     } else {
-    //         console.log('Email sent:', info.response);
-    //     }
-    // });
-    await sendTestEmail();
-    await addJobToQueue();
     return res.status(200).json({
         user,
         token
