@@ -16,6 +16,8 @@ const transporter = nodemailer.createTransport({
 
 // Function to send a test email
 const sendTestEmail = async (user,templatePath) => {
+    console.log("mail options user", user)
+
     const mailOptions = {
         from: 'ecommerce@gmail.com',
         to: user.email,
@@ -23,8 +25,10 @@ const sendTestEmail = async (user,templatePath) => {
         html: await renderEmailTemplate({
             name: user.name ,
             email: user.email ,
+            verification_code: user.verification_code ,
         }, templatePath),
     };
+    console.log("mail options", mailOptions)
     try {
         await transporter.sendMail(mailOptions);
         //place on a queue

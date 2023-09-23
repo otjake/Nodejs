@@ -23,6 +23,11 @@ const ProductModel = new mongoose.Schema({
         //     message: 'Invalid image URL.',
         // },
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Product',ProductModel)

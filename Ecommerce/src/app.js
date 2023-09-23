@@ -10,17 +10,19 @@ const rolesRouter = require('./routes/roles')
 const productsRouter = require('./routes/product')
 const cartRouter = require('./routes/cart')
 const authenticateUserMiddleware = require("./middleware/auth");
+const {handleErrors} = require("./middleware/customErrorMiddleware");
 const app = express();
 
 // Add your routes and middleware here
 
 //middleware
-app.use(express.json())//used for post routes to acess body parameters
+app.use(express.json())//used for post routes to access body parameters
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/roles', rolesRouter)
 app.use('/api/v1/products', authenticateUserMiddleware, productsRouter)
 app.use('/api/v1/cart', authenticateUserMiddleware, cartRouter)
+app.use(handleErrors);
 const port = process.env.PORT || 3000
 const start = async () => {
     try {
