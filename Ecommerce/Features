@@ -3,7 +3,7 @@ Building an e-commerce API in Express.js requires a robust set of features to su
 1. **User Authentication and Authorization**:
    - User registration and login -- Done
    - Role-based access control (customer, seller, admin) -- Done
-   - Secure user authentication (e.g., JWT)
+   - Secure user authentication (e.g., JWT) -- Done
 
 2. **Product Management**:
    - Product listing with search and filtering options -- Done
