@@ -26,6 +26,16 @@ const UserModel = new mongoose.Schema({
         ref: 'Role',
         required: true
     },
+    verification_code: {
+        type: String,
+        required: false,
+        minLength: 5,
+        maxLength: 5,
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
 })
 
 UserModel.pre('save', async function(next){
