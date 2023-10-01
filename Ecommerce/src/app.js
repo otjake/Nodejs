@@ -2,7 +2,6 @@
 require('dotenv').config()
 //async errors
 require ('express-async-errors')
-
 const connectDB = require("./db/connect");
 const express = require('express');
 const authRouter = require('./routes/auth')
@@ -13,10 +12,10 @@ const authenticateUserMiddleware = require("./middleware/auth");
 const {handleErrors} = require("./middleware/customErrorMiddleware");
 const app = express();
 
-// Add your routes and middleware here
-
 //middleware
 app.use(express.json())//used for post routes to access body parameters
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/roles', rolesRouter)
@@ -28,7 +27,6 @@ const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI).then(() => console.log("connected to Db")).catch((err) => console.log(err))
         app.listen(port,()=> console.log("run express on port"+port)) //express listens to actions via the port
-
     } catch (error){
         console.log(error)
     }
