@@ -1,4 +1,7 @@
 const Product = require('../models/Product')
+const cloudinary = require("../middleware/cloudinarySetup")
+const fs = require('fs');
+
 const allProducts = async (req,res) => {
     try {
         const products = await Product.find();
@@ -7,12 +10,26 @@ const allProducts = async (req,res) => {
         res.status(500).json({ error: 'An error occurred while retrieving products.' });
     }
 }
-const createProduct = async (req,res) => {
+const createProduct = async (req,res,next) => {
     try {
-        const product = await Product.create({...req.body});
+        let imagePath = req.file.path
+        const imageResult = await cloudinary.uploader.upload(imagePath, {
+            use_filename: true,
+            unique_filename: false,
+        });
+
+        let body = {
+            'image' : imageResult.secure_url,
+            'name' : req.body.name,
+            'price' : req.body.price
+        }
+        const product = await Product.create(body);
         res.status(200).json(product);
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred while creating products.' });
+        next(error)
+    } finally {
+        // Delete the temporary file
+        fs.unlinkSync(req.file.path);
     }
 }
 const editProduct = async (req, res) => {
