@@ -17,6 +17,7 @@ const createProduct = async (req,res,next) => {
             use_filename: true,
             unique_filename: false,
         });
+
         let body = {
             'image' : imageResult.secure_url,
             'name' : req.body.name,
