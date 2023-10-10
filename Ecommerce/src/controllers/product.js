@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const allProducts = async (req,res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate('category').exec();
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retrieving products.' });
@@ -21,7 +21,8 @@ const createProduct = async (req,res,next) => {
         let body = {
             'image' : imageResult.secure_url,
             'name' : req.body.name,
-            'price' : req.body.price
+            'price' : req.body.price,
+            'category' : req.body.category_id
         }
         const product = await Product.create(body);
         res.status(200).json(product);
