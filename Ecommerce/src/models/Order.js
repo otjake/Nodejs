@@ -11,7 +11,7 @@ const OrderModel = new mongoose.Schema({
     reference: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
-        required: true
+        required: false
     },
     status: {
         type: Number,
@@ -21,6 +21,10 @@ const OrderModel = new mongoose.Schema({
     total_amount: {
         type: Number,
         required: true
+    },
+    gateway:{
+        type: String,
+        required: false
     }
 })
 

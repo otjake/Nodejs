@@ -1,28 +1,14 @@
 
 B
 src/models/Role.js,f/c/fc43c14f04f7efb42426a276db8123b94621d8bc
-B
-src/routes/auth.js,6/e/6eb4d9c4db598b6e8c053ae8611b7e7e2cf8ac38
 R
 "views/mailTemplate/welcomeMail.ejs,c/6/c6d22eed8526c5ba856bdfa4ee258b6068e0573a
-B
-src/models/User.js,5/9/59765ae35cfd2fad8181b50dd9493268bf189887
 O
 src/db/seeders/productSeeder.js,2/b/2b3ea41a391261f507fb5d87b18acd27beb9b325
 L
 src/db/seeders/roleSeeder.js,0/0/002903a44cb2bf13a7dce9a1741f8c904cd49073
 <
 package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
-G
-src/controllers/auth.js,c/0/c0bdf0fe0b9b69644efb98e406e01f0424a984bc
-W
-'src/middleware/customErrorMiddleware.js,0/1/01923706ab4a463b8af1d10bfb5be9fd1323cbea
-4
-.env,3/c/3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
-F
-src/middleware/mail.js,1/a/1ae6221e09f1740aa24fdbb9eae2d9ba5c861be0
-F
-src/middleware/auth.js,2/9/291545564a9098afe078c1e8653604d8a7ef0e02
 C
 src/routes/roles.js,1/a/1a9d17620e987771b9537f26a4d7ecdc5d59c0ce
 H
@@ -31,24 +17,3 @@ F
 src/models/Category.js,2/f/2f105c237cb51ad516d1373a41c30f9b3e43fb77
 P
  src/db/seeders/categorySeeder.js,2/4/2418c055275e3b525ac52016be09992640fb6012
-J
-src/controllers/product.js,c/f/cf5647766896ed46747df011a973896f91e734c9
-B
-src/models/Cart.js,5/b/5bba0e8c5ccf4d7a1f7a39eaac5dda43ae44b866
-8
-Features,f/c/fc338f87a058158eb824b53705961801516a9460
-C
-src/models/Order.js,3/a/3a4e8e1b52536ed2990e64e776ba139f8837620d
-B
-src/routes/cart.js,4/4/446591fb4f91346bfc3cd5f152a70344a5dba3f9
-C
-src/routes/order.js,e/b/ebd46699d8bcb0b76a4eb3335b84b914a5c1b139
-G
-src/controllers/cart.js,c/c/cc055c9c4317fe184b6691e2a508bcbb2bbbb8d7
-:
-
-src/app.js,7/e/7e2883689d806a5f689579600efd29e430bebf92
-E
-src/routes/product.js,e/a/ea01ed2e07e6c5c0ec394e5a149dcfdfb21a05d2
-H
-src/controllers/order.js,f/a/fa825213123dec28bce16b21fb62d4cf89bf8c47
