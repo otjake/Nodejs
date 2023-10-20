@@ -14,20 +14,20 @@ const ProductModel = new mongoose.Schema({
     image: {
         type: String,
         required: true,
-        // validate: {
-        //     validator: (value) => {
-        //         // Assuming a basic validation for image URL
-        //         const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
-        //         return urlRegex.test(value);
-        //     },
-        //     message: 'Invalid image URL.',
-        // },
+        validate: {
+            validator: (value) => {
+                // Assuming a basic validation for image URL
+                const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+                return urlRegex.test(value);
+            },
+            message: 'Invalid image URL.',
+        },
     },
-    // category: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Category',
-    //     required: true
-    // },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Product',ProductModel)

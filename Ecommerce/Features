@@ -13,13 +13,13 @@ Building an e-commerce API in Express.js requires a robust set of features to su
    - Product ratings and reviews
 
 3. **Shopping Cart**:
-   - Add, update, and remove items from the shopping cart
-   - Calculate cart totals (subtotal, taxes, shipping)
-   - Save and retrieve user's cart
+   - Add, update, and remove items from the shopping cart -- Done
+   - Calculate cart totals (subtotal, taxes, shipping) -- out of scope
+   - Save and retrieve user's cart -- Done
 
 4. **Checkout and Orders**:
    - Checkout process with multiple payment options
-   - Order creation and management
+   - Order creation and management -- Next
    - Order history and tracking
    - Invoice generation and email notifications
 
