@@ -24,8 +24,9 @@ const userOrders = async (req,res, next) => {
 
 const createOrder = async (req, res) => {
     try {
-        const { cart_ids } = req.body;
+        const { cart_ids,payment_method } = req.body;
         const userId = req.user.userId;
+        const paystackPaymentMethod = process.env.PAYSTACK_PAYMENT
         // Replace "Cart" with the actual Mongoose model for cart items
         const Cart = mongoose.model('Cart');
         const cartObjectIds = cart_ids.map(id => new mongoose.Types.ObjectId(id));
@@ -57,18 +58,22 @@ const createOrder = async (req, res) => {
             'total_amount' : totalAmount,
             'user' : req.user.userId
         };
-        const order = await Order.fullModel.create(data);
         // Create a Paystack transaction
         const paymentData = {
             email: req.user.email, // User's email
             amount: totalAmount * 100, // Amount in kobo (1 USD = 100 kobo)
             currency: 'NGN', // Nigerian Naira
-            callback_url: 'https://yourwebsite.com/paystack-callback', // Replace with your actual callback URL
+            callback_url: 'https://webhook.site/a6e3cd48-bb76-4740-8030-2e73d1b63f72', // Replace with your actual callback URL
         };
 
-        const payment = await initialize(paymentData);
-        console.log("body response", payment)
-
+        if(payment_method == paystackPaymentMethod ){
+            const payment = await initialize(paymentData);
+            console.log("body response on initialization", payment.authorization_url, payment.reference)
+            data.reference = payment.reference;
+            data.payment_url = payment.authorization_url;
+        }
+        data.payment_gateway = paystackPaymentMethod
+        const order = await Order.fullModel.create(data);
         res.status(200).json(order);
     } catch (error) {
         console.error(error);
