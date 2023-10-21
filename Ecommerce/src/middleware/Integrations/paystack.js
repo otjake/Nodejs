@@ -11,9 +11,9 @@ const initialize = async (data) => {
                 email: data.email,
                 amount: data.amount,
             });
-
-            const authorizationUrl = response.data.authorization_url;
-            resolve(authorizationUrl);
+            console.log("response after initialize", response);      
+            const responseData = response.data;
+            resolve(responseData);
         } catch (error) {
             console.error("Error in Paystack initialization:", error);
             reject(error);
@@ -21,6 +21,24 @@ const initialize = async (data) => {
     });
 };
 
+const verify = async (reference) => {
+    console.log("reference", reference);
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await paystack.transaction.verify(reference);
+            console.log("response fter verify", response);
+
+            const verificationResponse = response;
+            resolve(verificationResponse);
+        } catch (error) {
+            console.error("Error in Paystack verifying transaction:", error);
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     initialize,
+    verify,
 };

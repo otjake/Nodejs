@@ -9,6 +9,7 @@ const rolesRouter = require('./routes/roles')
 const productsRouter = require('./routes/product')
 const cartRouter = require('./routes/cart')
 const orderRouter = require('./routes/order')
+const paystackRouter = require('./routes/paystack')
 const categoryRouter = require('./routes/category')
 const authenticateUserMiddleware = require("./middleware/auth");
 const {handleErrors} = require("./middleware/customErrorMiddleware");
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/roles', rolesRouter)
 app.use('/api/v1/categories', categoryRouter)
+app.use('/api/v1/paystack', paystackRouter)
 app.use('/api/v1/products', authenticateUserMiddleware, productsRouter)
 app.use('/api/v1/cart', authenticateUserMiddleware, cartRouter)
 app.use('/api/v1/orders', authenticateUserMiddleware, orderRouter)

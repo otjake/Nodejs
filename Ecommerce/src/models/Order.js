@@ -9,8 +9,7 @@ const OrderModel = new mongoose.Schema({
         required: true
     },
     reference: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
+        type: String,
         required: false
     },
     status: {
@@ -23,6 +22,10 @@ const OrderModel = new mongoose.Schema({
         required: true
     },
     gateway:{
+        type: String,
+        required: false
+    },
+    payment_url:{
         type: String,
         required: false
     }
