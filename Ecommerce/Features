@@ -24,7 +24,7 @@ Building an e-commerce API in Express.js requires a robust set of features to su
    - Invoice generation and email notifications
 
 5. **Payment Processing**:
-   - Integration with payment gateways (e.g., Stripe, PayPal)
+   - Integration with payment gateways (e.g., Stripe, PayPal)->used paystack and stripe
    - Handling payment confirmation and errors
    - Secure handling of payment information (PCI compliance)
 

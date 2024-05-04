@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include Bootstrap and jQuery CDN -->
+    <!-- Example CDN links, replace with the actual versions you want to use -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+    </script>
+</head>
+<body>
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Send Message</h1>
+        <br>
+        <input id="name" class="form-control" placeholder="Name">
+        <br>
+        <textarea id="message" class="form-control" placeholder="Your Message Here"></textarea>
+        <br>
+        <button id="send" class="btn btn-success">Send</button>
+    </div>
+    <div id="messages"></div>
+</div>
+
+<script>
+    $(() => {
+        $("#send").click(() => {
+            sendMessage({
+                name: $("#name").val(),
+                message: $("#message").val()
+            });
+        });
+        getMessages();
+    });
+
+    function addMessages(message) {
+        $("#messages").append(`
+        <h4>${message.name}</h4>
+        <p>${message.message}</p>
+      `);
+    }
+
+    function getMessages() {
+        $.get('http://127.0.0.1:3000/api/v1/messages', (data) => {
+            data.forEach(addMessages);
+        });
+    }
+
+    function sendMessage(message) {
+        console.log("Sending messaeg");
+        $.post('http://127.0.0.1:3000/api/v1/messages', message);
+    }
+</script>
+</body>
+</html>
